@@ -18,12 +18,4 @@ public class BibliothequeService {
     public Emprunteur getEmprunteur(int userId) {
         return utilisateurRepoJDBC.findEmprunteurById(userId);
     }
-
-    public void createPrepose(int userId, String name, String email, String phoneNumber) {
-        utilisateurRepoJDBC.savePrepose(new Prepose(userId, name, email, phoneNumber));
-    }
-
-    public Prepose getPrepose(int userId) {
-        return utilisateurRepoJDBC.findPreposeById(userId);
-    }
 }
