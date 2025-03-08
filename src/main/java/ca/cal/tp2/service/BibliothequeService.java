@@ -1,21 +1,23 @@
 package ca.cal.tp2.service;
 
+import ca.cal.tp2.exceptions.DatabaseException;
 import ca.cal.tp2.modele.Emprunteur;
-import ca.cal.tp2.modele.Prepose;
-import ca.cal.tp2.repository.EmprunteurRepositoryJDBC;
+import ca.cal.tp2.repository.EmprunteurRepositoryJPA;
+import ca.cal.tp2.service.dto.EmprunteurDTO;
 
 public class BibliothequeService {
-    private final EmprunteurRepositoryJDBC utilisateurRepoJDBC;
 
-    public BibliothequeService( EmprunteurRepositoryJDBC utilisateurRepoJDBC ) {
-        this.utilisateurRepoJDBC = utilisateurRepoJDBC;
+    private EmprunteurRepositoryJPA emprunteurRepository;
+
+    public BibliothequeService( EmprunteurRepositoryJPA emprunteurRepository ) {
+        this.emprunteurRepository = emprunteurRepository;
     }
 
-    public void createEmprunteur(int userId, String name, String email, String phoneNumber) {
-        utilisateurRepoJDBC.saveEmprunteur(new Emprunteur(userId, name, email, phoneNumber));
+    public void createEmprunteur(String nom, String email, String phoneNumber) throws DatabaseException {
+        emprunteurRepository.saveEmprunteur(new Emprunteur(nom, email, phoneNumber));
     }
 
-    public Emprunteur getEmprunteur(int userId) {
-        return utilisateurRepoJDBC.findEmprunteurById(userId);
+    public EmprunteurDTO getEmprunteur(String nom, String email) throws DatabaseException {
+        return EmprunteurDTO.toDTO(emprunteurRepository.findEmprunteur(nom, email));
     }
 }

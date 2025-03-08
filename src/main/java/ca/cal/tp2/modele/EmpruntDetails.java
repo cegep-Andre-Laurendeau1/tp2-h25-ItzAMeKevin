@@ -1,27 +1,25 @@
 package ca.cal.tp2.modele;
 
-import lombok.Data;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Data
+@Entity
 public class EmpruntDetails {
-    private final int id;
-    private final LocalDate dateRetourPrevue;
-    private final LocalDate dateRetourActuelle;
-    private final String status;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    private LocalDate dateRetourPrevue;
+    private LocalDate dateRetourActuelle;
+    private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "emprunt_id")
+    private Emprunt emprunt;
+
+    @ManyToOne
+    @JoinColumn(name = "document_id")
     private Document document;
 
-    // A mettre dans le service
-    public boolean isEnRetard() {
-        return false;
-    }
-
-    // A mettre dans le service
-    public double calculAmende() {
-        return 0;
-    }
-
-    // A mettre dans le service
-    public void updateStatus() {}
 }

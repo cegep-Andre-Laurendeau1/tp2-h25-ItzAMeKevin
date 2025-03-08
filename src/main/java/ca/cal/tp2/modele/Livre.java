@@ -1,11 +1,15 @@
 package ca.cal.tp2.modele;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 
+@Entity
+@DiscriminatorValue("LIVRE")
 public class Livre extends Document {
-    public Livre(int documentId, String titre, String nombreExemplaire,
+    public Livre(String titre, String nombreExemplaire,
                  String isbn, String auteur, String editeur, int nombrePages)
     {
-        super(documentId, titre, nombreExemplaire);
+        super(titre, nombreExemplaire);
         this.isbn = isbn;
         this.auteur = auteur;
         this.editeur = editeur;
@@ -17,19 +21,7 @@ public class Livre extends Document {
     private String editeur;
     private int nombrePages;
 
-    public String getIsbn() {
-        return isbn;
-    }
+    public Livre() {
 
-    public String getAuteur() {
-        return auteur;
-    }
-
-    public String getEditeur() {
-        return editeur;
-    }
-
-    public int getNombrePages() {
-        return nombrePages;
     }
 }

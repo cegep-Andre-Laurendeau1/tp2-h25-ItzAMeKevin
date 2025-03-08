@@ -1,17 +1,24 @@
 package ca.cal.tp2.modele;
 
-import lombok.Data;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Entity
 public class Emprunt {
-    private final int id;
-    private final LocalDate dateEmprunt;
-    private final String status;
-    private final List<EmpruntDetails> empruntDetailsList;
 
-    // A mettre dans le service
-    public void getItems() {}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    private LocalDate dateEmprunt;
+    private String status;
+
+    @OneToMany(mappedBy = "emprunt")
+    private List<EmpruntDetails> empruntDetailsList;
+
+    @ManyToOne
+    @JoinColumn(name = "emprunteur_id")
+    private Emprunteur emprunteur;
+
 }

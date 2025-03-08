@@ -1,42 +1,21 @@
 package ca.cal.tp2.modele;
 
-import lombok.Data;
+
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-@Data
+@Entity
 public class Amende {
-    private final int id;
-    private final double montant;
-    private final LocalDate dateCreation;
-    private final boolean status;
 
-    // A mettre dans le service
-    public double calculMontant() {
-        return 0;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    private double montant;
+    private LocalDate dateCreation;
+    private boolean status;
 
-    // A mettre dans le service
-    public void updateStatus() {}
-
-
-    // A mettre dans le service
-    public int getId() {
-        return id;
-    }
-
-    // A mettre dans le service
-    public double getMontant() {
-        return montant;
-    }
-
-    // A mettre dans le service
-    public LocalDate getDateCreation() {
-        return dateCreation;
-    }
-
-    // A mettre dans le service
-    public boolean isStatus() {
-        return status;
-    }
+    @ManyToOne
+    @JoinColumn(name = "emprunteur_id")
+    private Emprunteur emprunteur;
 }

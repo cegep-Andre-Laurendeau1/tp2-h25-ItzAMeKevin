@@ -1,21 +1,30 @@
 package ca.cal.tp2.modele;
 
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Data
+@Entity
+@NoArgsConstructor
+@Table(uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"nom", "email"})
+})
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TYPE")
+@Getter
 public abstract class Utilisateur {
-    private final int id;
-    private final String name;
-    private final String email;
-    private final String phoneNumber;
 
-    protected Utilisateur(int userId, String name, String email, String phoneNumber) {
-        this.id = userId;
-        this.name = name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    private String nom;
+    private String email;
+    private String phoneNumber;
+
+    public Utilisateur(String nom, String email, String phoneNumber) {
+        this.nom = nom;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
-
-    // A mettre dans le service
-    public void login() {}
 }
