@@ -11,4 +11,12 @@ public class Cd extends Document {
     private int duree;
     private String genre;
 
+    public Cd(String titre, int nbExemplaire, String artiste, int duree, String genre) {
+        super(titre, nbExemplaire);
+        this.artiste = artiste;
+        this.duree = duree;
+        this.genre = genre;
+    }
+
+    public Cd() {}
 }
