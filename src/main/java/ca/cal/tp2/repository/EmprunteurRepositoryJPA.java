@@ -6,21 +6,11 @@ import ca.cal.tp2.modele.Utilisateur;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-public class EmprunteurRepositoryJPA extends ParentRepositoryJPA implements EmprunteurRepository {
+public class EmprunteurRepositoryJPA extends RepositoryJPA implements EmprunteurRepository {
 
     @Override
     public void saveEmprunteur(Emprunteur emprunteur) throws DatabaseException {
-        try(EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
-            em.persist(emprunteur);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            throw new DatabaseException(e);
-        }
+        save(emprunteur);
     }
 
     @Override
