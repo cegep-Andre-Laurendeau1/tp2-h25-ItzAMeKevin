@@ -10,15 +10,18 @@ public class BibliothequeService {
     private EmprunteurRepositoryJPA emprunteurRepository;
     private LivreRepositoryJPA livreRepository;
     private CDRepositoryJPA cdRepository;
+    private DVDRepositoryJPA dvdRepository;
 
     public BibliothequeService(
             EmprunteurRepositoryJPA emprunteurRepository,
             LivreRepositoryJPA livreRepository,
-            CDRepositoryJPA cdRepository
+            CDRepositoryJPA cdRepository,
+            DVDRepositoryJPA dvdRepository
     ) {
         this.emprunteurRepository = emprunteurRepository;
         this.livreRepository = livreRepository;
         this.cdRepository = cdRepository;
+        this.dvdRepository = dvdRepository;
     }
 
     public void saveEmprunteur(String nom, String email, String phoneNumber) throws DatabaseException {
@@ -35,5 +38,9 @@ public class BibliothequeService {
 
     public void saveCD(String titre, int nbExemplaire, String artiste, int duree, String genre) throws DatabaseException {
         cdRepository.saveCD(new Cd(titre, nbExemplaire, artiste, duree, genre));
+    }
+
+    public void saveDVD(String titre, int nbExemplaire, String director, int duree, String rating) throws DatabaseException {
+        dvdRepository.saveDvd(new Dvd(titre, nbExemplaire, director, duree, rating));
     }
 }

@@ -2,6 +2,7 @@ package ca.cal.tp2;
 
 import ca.cal.tp2.exceptions.DatabaseException;
 import ca.cal.tp2.repository.CDRepositoryJPA;
+import ca.cal.tp2.repository.DVDRepositoryJPA;
 import ca.cal.tp2.repository.EmprunteurRepositoryJPA;
 import ca.cal.tp2.repository.LivreRepositoryJPA;
 import ca.cal.tp2.service.BibliothequeService;
@@ -14,7 +15,8 @@ public class Main {
         BibliothequeService service = new BibliothequeService(
                 new EmprunteurRepositoryJPA(),
                 new LivreRepositoryJPA(),
-                new CDRepositoryJPA()
+                new CDRepositoryJPA(),
+                new DVDRepositoryJPA()
         );
 
         try {
@@ -37,6 +39,12 @@ public class Main {
 
         try {
             service.saveCD("Smooth Criminal", 3, "Michael Jackson", 4, "Pop");
+        } catch (DatabaseException e) {
+            System.out.println("Erreur BD: " + e.getMessage());
+        }
+
+        try {
+            service.saveDVD("Troy", 2, "Ridley Scott", 150, "Meh sans Brad Pitt c moche");
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
         }
