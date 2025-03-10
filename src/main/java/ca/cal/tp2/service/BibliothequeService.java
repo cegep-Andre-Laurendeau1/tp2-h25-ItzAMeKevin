@@ -4,6 +4,7 @@ import ca.cal.tp2.exceptions.DatabaseException;
 import ca.cal.tp2.modele.*;
 import ca.cal.tp2.repository.*;
 import ca.cal.tp2.service.dto.CdDTO;
+import ca.cal.tp2.service.dto.DvdDTO;
 import ca.cal.tp2.service.dto.EmprunteurDTO;
 import ca.cal.tp2.service.dto.LivreDTO;
 
@@ -57,5 +58,10 @@ public class BibliothequeService {
 
     public void saveDVD(String titre, int nbExemplaire, String director, int duree, String rating) throws DatabaseException {
         dvdRepository.saveDvd(new Dvd(titre, nbExemplaire, director, duree, rating));
+    }
+
+    public List<DvdDTO> rechercherDVDs(String titre, String director) throws DatabaseException {
+        List<Dvd> dvds = dvdRepository.rechercherDvds(titre, director);
+        return dvds.stream().map(DvdDTO::toDTO).collect(Collectors.toList());
     }
 }

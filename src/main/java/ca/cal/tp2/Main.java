@@ -7,6 +7,7 @@ import ca.cal.tp2.repository.EmprunteurRepositoryJPA;
 import ca.cal.tp2.repository.LivreRepositoryJPA;
 import ca.cal.tp2.service.BibliothequeService;
 import ca.cal.tp2.service.dto.CdDTO;
+import ca.cal.tp2.service.dto.DvdDTO;
 import ca.cal.tp2.service.dto.LivreDTO;
 
 import java.sql.SQLException;
@@ -30,24 +31,6 @@ public class Main {
 
         try {
             System.out.println(service.getEmprunteur("Justin Trudeau", "justrudeau@email.com"));
-        } catch (DatabaseException e) {
-            System.out.println("Erreur BD: " + e.getMessage());
-        }
-
-        try {
-            service.saveLivre("Excalibur et son roi", 9, "4102128880117", "Marie Curie", "Édition Vide", 426);
-        } catch (DatabaseException e) {
-            System.out.println("Erreur BD: " + e.getMessage());
-        }
-
-        try {
-            service.saveCD("Smooth Criminal", 3, "Michael Jackson", 4, "Pop");
-        } catch (DatabaseException e) {
-            System.out.println("Erreur BD: " + e.getMessage());
-        }
-
-        try {
-            service.saveDVD("Troy", 2, "Ridley Scott", 150, "Meh sans Brad Pitt c moche");
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
         }
@@ -90,6 +73,27 @@ public class Main {
             List<CdDTO> resultatsTitreArtiste = service.rechercherCDs("Greatest", "Queen");
             System.out.println("\nRecherche par titre (Greatest) et artiste (Queen) :");
             resultatsTitreArtiste.forEach(c -> System.out.println("- " + c.titre() + " par " + c.artiste()));
+
+        } catch (DatabaseException e) {
+            System.out.println("Erreur BD: " + e.getMessage());
+        }
+
+        try {
+            service.saveDVD("Super Mario Bros", 2, "James Cameron", 120, "Funny");
+            service.saveDVD("Miyamoto and Mario", 3, "Nintendo", 75, "Creative");
+            service.saveDVD("Miyamoto the designer", 2, "Nintendo", 75, "Ok cool");
+
+            List<DvdDTO> resultatsTitre = service.rechercherDVDs("Mario", null);
+            System.out.println("Recherche par titre (Mario) :");
+            resultatsTitre.forEach(c -> System.out.println("- " + c.titre() + " par " + c.director()));
+
+            List<DvdDTO> resultatsDirector = service.rechercherDVDs(null, "Nintendo");
+            System.out.println("\nRecherche par directeur (Nintendo) :");
+            resultatsDirector.forEach(c -> System.out.println("- " + c.titre() + " par " + c.director()));
+
+            List<DvdDTO> resultatsTitreDirector = service.rechercherDVDs("Mario", "Nintendo");
+            System.out.println("\nRecherche par titre (Mario) et directeur (Nintendo) :");
+            resultatsTitreDirector.forEach(c -> System.out.println("- " + c.titre() + " par " + c.director()));
 
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
