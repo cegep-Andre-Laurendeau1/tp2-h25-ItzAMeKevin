@@ -6,8 +6,10 @@ import ca.cal.tp2.repository.DVDRepositoryJPA;
 import ca.cal.tp2.repository.EmprunteurRepositoryJPA;
 import ca.cal.tp2.repository.LivreRepositoryJPA;
 import ca.cal.tp2.service.BibliothequeService;
+import ca.cal.tp2.service.dto.LivreDTO;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException, InterruptedException {
@@ -32,7 +34,7 @@ public class Main {
         }
 
         try {
-            service.saveLivre("Excalibur", 1, "4102128880117", "Martin", "LivrePub", 426);
+            service.saveLivre("Excalibur et son roi", 9, "4102128880117", "Marie Curie", "Édition Vide", 426);
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
         }
@@ -45,6 +47,27 @@ public class Main {
 
         try {
             service.saveDVD("Troy", 2, "Ridley Scott", 150, "Meh sans Brad Pitt c moche");
+        } catch (DatabaseException e) {
+            System.out.println("Erreur BD: " + e.getMessage());
+        }
+
+        try {
+            service.saveLivre("Les parapluies verts", 2, "1234567890123", "Jean Dupont", "Éditions Soleil", 305);
+            service.saveLivre("Parapluies et le froid", 1, "9876543210987", "Marie Curie", "Éditions Pluie", 251);
+            service.saveLivre("Le vent et la neige", 3, "4567891230456", "Jean Dupont", "Éditions Nature", 409);
+
+            List<LivreDTO> resultatsTitre = service.rechercherLivres("parapluies", null);
+            System.out.println("Recherche par titre (parapluies) :");
+            resultatsTitre.forEach(l -> System.out.println("- " + l.titre() + " par " + l.auteur()));
+
+            List<LivreDTO> resultatsAuteur = service.rechercherLivres(null, "Jean");
+            System.out.println("\nRecherche par Auteur (Jean) :");
+            resultatsAuteur.forEach(l -> System.out.println("- " + l.titre() + " par " + l.auteur()));
+
+            List<LivreDTO> resultatsTitreAuteur = service.rechercherLivres("parapluies", "Jean");
+            System.out.println("\nRecherche par titre (parapluies) et auteur (Jean) :");
+            resultatsTitreAuteur.forEach(l -> System.out.println("- " + l.titre() + " par " + l.auteur()));
+
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
         }

@@ -4,6 +4,10 @@ import ca.cal.tp2.exceptions.DatabaseException;
 import ca.cal.tp2.modele.*;
 import ca.cal.tp2.repository.*;
 import ca.cal.tp2.service.dto.EmprunteurDTO;
+import ca.cal.tp2.service.dto.LivreDTO;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BibliothequeService {
 
@@ -34,6 +38,11 @@ public class BibliothequeService {
 
     public void saveLivre(String titre, int nbExemplaire, String isbn, String auteur, String publicateur, int nbPage) throws DatabaseException {
         livreRepository.saveLivre(new Livre(titre, nbExemplaire, isbn, auteur, publicateur, nbPage));
+    }
+
+    public List<LivreDTO> rechercherLivres(String titre, String auteur) throws DatabaseException {
+        List<Livre> livres = livreRepository.rechercherLivres(titre, auteur);
+        return livres.stream().map(LivreDTO::toDTO).collect(Collectors.toList());
     }
 
     public void saveCD(String titre, int nbExemplaire, String artiste, int duree, String genre) throws DatabaseException {
