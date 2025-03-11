@@ -30,4 +30,11 @@ public abstract class Document {
         this.nombreExemplaire = nombreExemplaire;
     }
 
+    public boolean verifieDisponibilite() {
+        long empruntsEnCours = empruntDetailsList.stream()
+                .filter(empruntDetails -> empruntDetails.getDateRetourActuelle() == null)
+                .count();
+        return nombreExemplaire > empruntsEnCours;
+    }
+
 }

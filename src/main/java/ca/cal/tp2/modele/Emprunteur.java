@@ -1,10 +1,15 @@
 package ca.cal.tp2.modele;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.*;
 
 @Entity
 @DiscriminatorValue("EMPRUNTEUR")
+@Getter
+@Setter
 public class Emprunteur extends Utilisateur {
 
     @OneToMany(mappedBy = "emprunteur")
@@ -17,7 +22,7 @@ public class Emprunteur extends Utilisateur {
         super(name, email, phoneNumber);
     }
 
-    public Emprunteur() {
+    public Emprunteur() {}
 
-    }
+    public void emprunte(Document document) {}
 }

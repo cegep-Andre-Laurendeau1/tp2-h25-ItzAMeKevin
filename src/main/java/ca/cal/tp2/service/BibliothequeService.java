@@ -8,6 +8,7 @@ import ca.cal.tp2.service.dto.DvdDTO;
 import ca.cal.tp2.service.dto.EmprunteurDTO;
 import ca.cal.tp2.service.dto.LivreDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,17 +18,23 @@ public class BibliothequeService {
     private LivreRepositoryJPA livreRepository;
     private CDRepositoryJPA cdRepository;
     private DVDRepositoryJPA dvdRepository;
+    private EmpruntRepositoryJPA empruntRepository;
+    private EmpruntDetailsRepositoryJPA empruntDetailsRepository;
 
     public BibliothequeService(
             EmprunteurRepositoryJPA emprunteurRepository,
             LivreRepositoryJPA livreRepository,
             CDRepositoryJPA cdRepository,
-            DVDRepositoryJPA dvdRepository
+            DVDRepositoryJPA dvdRepository,
+            EmpruntRepositoryJPA empruntRepository,
+            EmpruntDetailsRepositoryJPA empruntDetailsRepository
     ) {
         this.emprunteurRepository = emprunteurRepository;
         this.livreRepository = livreRepository;
         this.cdRepository = cdRepository;
         this.dvdRepository = dvdRepository;
+        this.empruntRepository = empruntRepository;
+        this.empruntDetailsRepository = empruntDetailsRepository;
     }
 
     public void saveEmprunteur(String nom, String email, String phoneNumber) throws DatabaseException {
@@ -36,6 +43,10 @@ public class BibliothequeService {
 
     public EmprunteurDTO getEmprunteur(String nom, String email) throws DatabaseException {
         return EmprunteurDTO.toDTO(emprunteurRepository.findEmprunteur(nom, email));
+    }
+
+    public EmprunteurDTO getEmprunteur(int id) throws DatabaseException {
+        return EmprunteurDTO.toDTO(emprunteurRepository.findEmprunteur(id));
     }
 
     public void saveLivre(String titre, int nbExemplaire, String isbn, String auteur, String publicateur, int nbPage) throws DatabaseException {
@@ -63,5 +74,9 @@ public class BibliothequeService {
     public List<DvdDTO> rechercherDVDs(String titre, String director) throws DatabaseException {
         List<Dvd> dvds = dvdRepository.rechercherDvds(titre, director);
         return dvds.stream().map(DvdDTO::toDTO).collect(Collectors.toList());
+    }
+
+    public void emprunterDocuments(int emprunteurId, List<Integer> documentId) throws DatabaseException {
+
     }
 }

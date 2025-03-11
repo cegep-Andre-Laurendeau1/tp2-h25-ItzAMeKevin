@@ -9,4 +9,5 @@ public interface EmprunteurRepository {
 
     Emprunteur findEmprunteur(String nom, String email) throws DatabaseException;
 
+    Emprunteur findEmprunteur(int id) throws DatabaseException;
 }

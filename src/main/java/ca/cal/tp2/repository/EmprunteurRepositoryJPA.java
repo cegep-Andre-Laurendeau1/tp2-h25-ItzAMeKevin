@@ -27,4 +27,9 @@ public class EmprunteurRepositoryJPA extends RepositoryJPA implements Emprunteur
         }
     }
 
+    @Override
+    public Emprunteur findEmprunteur(int id) throws DatabaseException {
+        return rechercheById(id, Emprunteur.class);
+    }
+
 }

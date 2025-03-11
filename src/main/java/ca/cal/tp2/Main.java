@@ -1,10 +1,7 @@
 package ca.cal.tp2;
 
 import ca.cal.tp2.exceptions.DatabaseException;
-import ca.cal.tp2.repository.CDRepositoryJPA;
-import ca.cal.tp2.repository.DVDRepositoryJPA;
-import ca.cal.tp2.repository.EmprunteurRepositoryJPA;
-import ca.cal.tp2.repository.LivreRepositoryJPA;
+import ca.cal.tp2.repository.*;
 import ca.cal.tp2.service.BibliothequeService;
 import ca.cal.tp2.service.dto.CdDTO;
 import ca.cal.tp2.service.dto.DvdDTO;
@@ -20,7 +17,9 @@ public class Main {
                 new EmprunteurRepositoryJPA(),
                 new LivreRepositoryJPA(),
                 new CDRepositoryJPA(),
-                new DVDRepositoryJPA()
+                new DVDRepositoryJPA(),
+                new EmpruntRepositoryJPA(),
+                new EmpruntDetailsRepositoryJPA()
         );
 
         try {
@@ -31,6 +30,12 @@ public class Main {
 
         try {
             System.out.println(service.getEmprunteur("Justin Trudeau", "justrudeau@email.com"));
+        } catch (DatabaseException e) {
+            System.out.println("Erreur BD: " + e.getMessage());
+        }
+
+        try {
+            System.out.println(service.getEmprunteur(1));
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
         }
@@ -93,7 +98,7 @@ public class Main {
 
             List<DvdDTO> resultatsTitreDirector = service.rechercherDVDs("Mario", "Nintendo");
             System.out.println("\nRecherche par titre (Mario) et directeur (Nintendo) :");
-            resultatsTitreDirector.forEach(c -> System.out.println("- " + c.titre() + " par " + c.director()));
+            resultatsTitreDirector.forEach(c -> System.out.println("- #" + c.id() + " - " + c.titre() + " par " + c.director()));
 
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
