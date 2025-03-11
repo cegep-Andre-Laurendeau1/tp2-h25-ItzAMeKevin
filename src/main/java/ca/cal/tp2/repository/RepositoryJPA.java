@@ -39,16 +39,4 @@ public abstract class RepositoryJPA {
             throw new DatabaseException(e);
         }
     }
-
-    public <T> T rechercheById(int id, Class<T> classeT) throws DatabaseException{
-        try(EntityManager em = emf.createEntityManager()) {
-            TypedQuery<T> query = em.createQuery(
-                    "SELECT e FROM " + classeT.getSimpleName() + " e WHERE e.id = :id", classeT
-            );
-            query.setParameter("id", id);
-            return query.getSingleResult();
-        } catch (Exception e) {
-            throw new DatabaseException(e);
-        }
-    }
 }

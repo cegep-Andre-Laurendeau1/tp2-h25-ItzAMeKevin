@@ -3,11 +3,10 @@ package ca.cal.tp2;
 import ca.cal.tp2.exceptions.DatabaseException;
 import ca.cal.tp2.repository.*;
 import ca.cal.tp2.service.BibliothequeService;
-import ca.cal.tp2.service.dto.CdDTO;
-import ca.cal.tp2.service.dto.DvdDTO;
-import ca.cal.tp2.service.dto.LivreDTO;
+import ca.cal.tp2.service.dto.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -15,9 +14,7 @@ public class Main {
 
         BibliothequeService service = new BibliothequeService(
                 new EmprunteurRepositoryJPA(),
-                new LivreRepositoryJPA(),
-                new CDRepositoryJPA(),
-                new DVDRepositoryJPA(),
+                new DocumentRepositoryJPA(),
                 new EmpruntRepositoryJPA(),
                 new EmpruntDetailsRepositoryJPA()
         );
@@ -118,6 +115,12 @@ public class Main {
 
         try {
             System.out.println(service.getDVD(8));
+        } catch (DatabaseException e) {
+            System.out.println("Erreur BD: " + e.getMessage());
+        }
+
+        try {
+            service.emprunterDocument(1, List.of(3, 6, 8));
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
         }
