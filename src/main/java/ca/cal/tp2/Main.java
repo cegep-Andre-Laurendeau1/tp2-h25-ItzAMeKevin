@@ -110,6 +110,12 @@ public class Main {
             System.out.println("Erreur BD: " + e.getMessage());
         }
 
+        try {
+            System.out.println(service.getDVD(8));
+        } catch (DatabaseException e) {
+            System.out.println("Erreur BD: " + e.getMessage());
+        }
+
         Thread.currentThread().join();
     }
 }

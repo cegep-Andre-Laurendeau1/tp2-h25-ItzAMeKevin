@@ -80,6 +80,10 @@ public class BibliothequeService {
         return dvds.stream().map(DvdDTO::toDTO).collect(Collectors.toList());
     }
 
+    public DvdDTO getDVD(int id) throws DatabaseException {
+        return DvdDTO.toDTO(dvdRepository.getDVD(id));
+    }
+
     public void emprunterDocuments(int emprunteurId, List<Integer> documentId) throws DatabaseException {
 
     }

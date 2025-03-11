@@ -23,6 +23,6 @@ public class DVDRepositoryJPA extends RepositoryJPA implements DVDRepository {
 
     @Override
     public Dvd getDVD(int id) throws DatabaseException {
-        return null;
+        return rechercheById(id, Dvd.class);
     }
 }
