@@ -20,4 +20,9 @@ public class LivreRepositoryJPA extends RepositoryJPA implements LivreRepository
         if (auteur != null) criteres.put("auteur", auteur);
         return rechercher(Livre.class, criteres);
     }
+
+    @Override
+    public Livre getLivre(int id) throws DatabaseException {
+        return null;
+    }
 }

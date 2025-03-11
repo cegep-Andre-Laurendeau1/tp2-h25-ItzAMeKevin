@@ -9,4 +9,6 @@ public interface CDRepository {
     void saveCD(Cd cd) throws DatabaseException;
 
     List<Cd> rechercherCDs(String titre, String artiste) throws DatabaseException;
+
+    Cd getCD(int id) throws DatabaseException;
 }

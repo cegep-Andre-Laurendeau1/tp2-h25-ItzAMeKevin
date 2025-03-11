@@ -10,4 +10,6 @@ public interface LivreRepository {
     void saveLivre(Livre livre) throws DatabaseException;
 
     List<Livre> rechercherLivres(String titre, String auteur) throws DatabaseException;
+
+    Livre getLivre(int id) throws DatabaseException;
 }

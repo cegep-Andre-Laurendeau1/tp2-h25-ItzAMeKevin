@@ -20,4 +20,9 @@ public class DVDRepositoryJPA extends RepositoryJPA implements DVDRepository {
         if (director != null) criteres.put("director", director);
         return rechercher(Dvd.class, criteres);
     }
+
+    @Override
+    public Dvd getDVD(int id) throws DatabaseException {
+        return null;
+    }
 }

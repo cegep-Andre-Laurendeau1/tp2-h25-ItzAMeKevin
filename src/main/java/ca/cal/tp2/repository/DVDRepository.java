@@ -9,4 +9,6 @@ public interface DVDRepository {
     void saveDvd(Dvd dvd) throws DatabaseException;
 
     List<Dvd> rechercherDvds(String titre, String director) throws DatabaseException;
+
+    Dvd getDVD(int id) throws DatabaseException;
 }

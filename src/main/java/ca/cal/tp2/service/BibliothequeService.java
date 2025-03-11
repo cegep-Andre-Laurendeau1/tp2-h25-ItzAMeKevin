@@ -67,6 +67,10 @@ public class BibliothequeService {
         return cds.stream().map(CdDTO::toDTO).collect(Collectors.toList());
     }
 
+    public CdDTO getCD(int id) throws DatabaseException {
+        return CdDTO.toDTO(cdRepository.getCD(id));
+    }
+
     public void saveDVD(String titre, int nbExemplaire, String director, int duree, String rating) throws DatabaseException {
         dvdRepository.saveDvd(new Dvd(titre, nbExemplaire, director, duree, rating));
     }

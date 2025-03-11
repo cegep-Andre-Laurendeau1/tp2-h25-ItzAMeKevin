@@ -47,15 +47,15 @@ public class Main {
 
             List<LivreDTO> resultatsTitre = service.rechercherLivres("parapluies", null);
             System.out.println("Recherche par titre (parapluies) :");
-            resultatsTitre.forEach(l -> System.out.println("- " + l.titre() + " par " + l.auteur()));
+            resultatsTitre.forEach(System.out::println);
 
             List<LivreDTO> resultatsAuteur = service.rechercherLivres(null, "Jean");
             System.out.println("\nRecherche par Auteur (Jean) :");
-            resultatsAuteur.forEach(l -> System.out.println("- " + l.titre() + " par " + l.auteur()));
+            resultatsAuteur.forEach(System.out::println);
 
             List<LivreDTO> resultatsTitreAuteur = service.rechercherLivres("parapluies", "Jean");
             System.out.println("\nRecherche par titre (parapluies) et auteur (Jean) :");
-            resultatsTitreAuteur.forEach(l -> System.out.println("- " + l.titre() + " par " + l.auteur()));
+            resultatsTitreAuteur.forEach(System.out::println);
 
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
@@ -69,16 +69,22 @@ public class Main {
 
             List<CdDTO> resultatsTitre = service.rechercherCDs("Greatest", null);
             System.out.println("Recherche par titre (Greatest) :");
-            resultatsTitre.forEach(c -> System.out.println("- " + c.titre() + " par " + c.artiste()));
+            resultatsTitre.forEach(System.out::println);
 
             List<CdDTO> resultatsArtiste = service.rechercherCDs(null, "Queen");
             System.out.println("\nRecherche par artiste (Queen) :");
-            resultatsArtiste.forEach(c -> System.out.println("- " + c.titre() + " par " + c.artiste()));
+            resultatsArtiste.forEach(System.out::println);
 
             List<CdDTO> resultatsTitreArtiste = service.rechercherCDs("Greatest", "Queen");
             System.out.println("\nRecherche par titre (Greatest) et artiste (Queen) :");
-            resultatsTitreArtiste.forEach(c -> System.out.println("- " + c.titre() + " par " + c.artiste()));
+            resultatsTitreArtiste.forEach(System.out::println);
 
+        } catch (DatabaseException e) {
+            System.out.println("Erreur BD: " + e.getMessage());
+        }
+
+        try {
+            System.out.println(service.getCD(4));
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
         }
@@ -90,15 +96,15 @@ public class Main {
 
             List<DvdDTO> resultatsTitre = service.rechercherDVDs("Mario", null);
             System.out.println("Recherche par titre (Mario) :");
-            resultatsTitre.forEach(c -> System.out.println("- " + c.titre() + " par " + c.director()));
+            resultatsTitre.forEach(System.out::println);
 
             List<DvdDTO> resultatsDirector = service.rechercherDVDs(null, "Nintendo");
             System.out.println("\nRecherche par directeur (Nintendo) :");
-            resultatsDirector.forEach(c -> System.out.println("- " + c.titre() + " par " + c.director()));
+            resultatsDirector.forEach(System.out::println);
 
             List<DvdDTO> resultatsTitreDirector = service.rechercherDVDs("Mario", "Nintendo");
             System.out.println("\nRecherche par titre (Mario) et directeur (Nintendo) :");
-            resultatsTitreDirector.forEach(c -> System.out.println("- #" + c.id() + " - " + c.titre() + " par " + c.director()));
+            resultatsTitreDirector.forEach(System.out::println);
 
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());

@@ -20,4 +20,9 @@ public class CDRepositoryJPA extends RepositoryJPA implements CDRepository {
         if (artiste != null) criteres.put("artiste", artiste);
         return rechercher(Cd.class, criteres);
     }
+
+    @Override
+    public Cd getCD(int id) throws DatabaseException {
+        return rechercheById(id, Cd.class);
+    }
 }
