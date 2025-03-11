@@ -30,11 +30,11 @@ public class EmprunteurRepositoryJPA extends RepositoryJPA implements Emprunteur
     @Override
     public Emprunteur findEmprunteur(int id) throws DatabaseException {
         try(EntityManager em = emf.createEntityManager()) {
-            TypedQuery<Utilisateur> query = em.createQuery(
-                    "SELECT c FROM Utilisateur c WHERE c.id = :id", Utilisateur.class
+            TypedQuery<Emprunteur> query = em.createQuery(
+                    "SELECT c FROM Emprunteur c LEFT JOIN FETCH c.emprunts WHERE c.id = :id", Emprunteur.class
             );
             query.setParameter("id", id);
-            return (Emprunteur) query.getSingleResult();
+            return query.getSingleResult();
         } catch (Exception e) {
             throw new DatabaseException(e);
         }

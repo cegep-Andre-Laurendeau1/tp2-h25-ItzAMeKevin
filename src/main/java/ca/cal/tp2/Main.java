@@ -120,7 +120,20 @@ public class Main {
         }
 
         try {
-            service.emprunterDocument(1, List.of(3, 6, 8));
+            service.emprunterDocument(1, List.of(3, 5, 8));
+        } catch (DatabaseException e) {
+            System.out.println("Erreur BD: " + e.getMessage());
+        }
+
+        try {
+            service.saveEmprunteur("Julien Tremblay", "juletby@email.com", "5145140000");
+            service.emprunterDocument(2, List.of(4, 5, 9));
+        } catch (DatabaseException e) {
+            System.out.println("Erreur BD: " + e.getMessage());
+        }
+
+        try {
+            System.out.println(service.listeEmpruntsActuels(1));
         } catch (DatabaseException e) {
             System.out.println("Erreur BD: " + e.getMessage());
         }

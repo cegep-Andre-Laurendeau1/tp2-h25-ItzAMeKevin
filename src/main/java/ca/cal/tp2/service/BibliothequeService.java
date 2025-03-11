@@ -107,6 +107,32 @@ public class BibliothequeService {
         }
     }
 
+    public String listeEmpruntsActuels(int emprunteurId) throws DatabaseException {
+        try {
+            verifierEmprunteurExiste(emprunteurId);
+            Emprunteur emprunteur = emprunteurRepository.findEmprunteur(emprunteurId);
+            StringBuilder resultat = new StringBuilder("Emprunteur: " + emprunteur.getNom() + "\nListe d'emprunts: ");
+
+            List<Emprunt> listeEmpruntsEnCours = new ArrayList<>();
+            for(Emprunt emprunt : emprunteur.getEmprunts()) {
+                if(emprunt.getStatus().equals("En cours")) {
+                    listeEmpruntsEnCours.add(empruntRepository.getEmprunt(emprunt.getId()));
+                }
+            }
+
+            for (Emprunt emprunt : listeEmpruntsEnCours) {
+                for (EmpruntDetails details : emprunt.getEmpruntDetailsList()) {
+                    resultat.append(empruntDetailsToString(emprunt, details));
+                }
+            }
+
+            return resultat.toString();
+        } catch (Exception e) {
+            throw new DatabaseException(e);
+        }
+    }
+
+
     private void verifierEmprunteurExiste(int emprunteurId) throws DatabaseException {
         if (emprunteurRepository.findEmprunteur(emprunteurId) == null) {
             throw new DatabaseException(new Exception("Emprunteur introuvable"));
@@ -129,5 +155,10 @@ public class BibliothequeService {
         if (document instanceof Cd) return 2;
         if (document instanceof Dvd) return 1;
         return 0;
+    }
+
+    private String empruntDetailsToString(Emprunt emprunt, EmpruntDetails details) {
+        return "\n- " + details.getDocument().getTitre() + "\n\t- Emprunté le: "
+                + emprunt.getDateEmprunt() + "\n\t- À rendre le: " + details.getDateRetourPrevue();
     }
 }

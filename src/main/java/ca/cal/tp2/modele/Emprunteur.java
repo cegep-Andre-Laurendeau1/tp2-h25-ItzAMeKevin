@@ -23,6 +23,4 @@ public class Emprunteur extends Utilisateur {
     }
 
     public Emprunteur() {}
-
-    public void emprunte(Document document) {}
 }
