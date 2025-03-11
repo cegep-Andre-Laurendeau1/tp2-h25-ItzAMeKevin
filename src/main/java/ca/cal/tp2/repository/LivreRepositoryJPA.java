@@ -23,6 +23,6 @@ public class LivreRepositoryJPA extends RepositoryJPA implements LivreRepository
 
     @Override
     public Livre getLivre(int id) throws DatabaseException {
-        return null;
+        return rechercheById(id, Livre.class);
     }
 }

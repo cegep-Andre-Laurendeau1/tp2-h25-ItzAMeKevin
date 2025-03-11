@@ -58,6 +58,10 @@ public class BibliothequeService {
         return livres.stream().map(LivreDTO::toDTO).collect(Collectors.toList());
     }
 
+    public LivreDTO getLivre(int id) throws DatabaseException {
+        return LivreDTO.toDTO(livreRepository.getLivre(id));
+    }
+
     public void saveCD(String titre, int nbExemplaire, String artiste, int duree, String genre) throws DatabaseException {
         cdRepository.saveCD(new Cd(titre, nbExemplaire, artiste, duree, genre));
     }

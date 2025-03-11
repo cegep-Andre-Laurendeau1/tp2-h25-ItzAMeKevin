@@ -62,6 +62,12 @@ public class Main {
         }
 
         try {
+            System.out.println(service.getLivre(3));
+        } catch (DatabaseException e) {
+            System.out.println("Erreur BD: " + e.getMessage());
+        }
+
+        try {
             service.saveCD("Greatest Hits", 2, "Queen", 60, "Rock");
             service.saveCD("Bohemian Rhapsody", 1, "Queen", 6, "Rock");
             service.saveCD("The Best of Mozart", 3, "Mozart", 120, "Classique");
